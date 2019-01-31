@@ -1,0 +1,188 @@
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet50 -b 64 '/data1/datasets/imageNet/ILSVRC2012/'
+
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet50 /data1/datasets/imageNet/ILSVRC2012/ -b 64 --epochs 2
+tensorboard --logdir='./logs' --port=6006
+
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet50 /data1/datasets/imageNet/ILSVRC2012/ -b 64 -p 5000
+
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet50 /data1/datasets/imageNet/ILSVRC2012/ -b 64 -p 5000 -j 55
+
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet50 /data1/datasets/imageNet/ILSVRC2012/ -b 64 -p 10 -j 55
+tensorboard --logdir='./logs/test' --port=6007
+
+CUDA_VISIBLE_DEVICES=1 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/checkpoint.pth.tar' -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 128
+
+11.6
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 64 --epochs 75
+
+#CUDA_VISIBLE_DEVICES=0,1 python main.py -a resnet34 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 64 --epochs 75
+
+tensorboard --logdir='./logs/test/events.out.tfevents.1541514098.amax' --port=6007
+
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 64 -p 10 -j 64 --epochs 20
+
+11.8
+CUDA_VISIBLE_DEVICES=1 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/checkpoint.pth.tar' -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 128
+
+
+11.12
+tensorboard --logdir='./logs/test/resnet18' --port=6007
+
+11.14
+CUDA_VISIBLE_DEVICES=2 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/checkpoint.pth.tar' -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 128
+
+11.27
+CUDA_VISIBLE_DEVICES=2 python main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 256 --lr 0.06
+
+test lmdb
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 2 -p 10 -j 32 --lmdb 1
+
+12.11
+tensorboard --logdir='./logs/test/gbl-resnet' --port=6007
+tensorboard --logdir='./logs/test/resnet18' --port=6008
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /home/jcz/data/ILSVRC2012/ -b 256 -p 10 -j 4 --lmdb 1 -log ./logs/test/gbl-resnet/lr8e-2 --lr 0.08
+
+CUDA_VISIBLE_DEVICES=2 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/checkpoint.pth.tar' -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 64 --lr 0.06
+tensorboard --logdir='./logs/test/gbl-resnet' --port=6007
+tensorboard --logdir='./logs/test/resnet18' --port=6006
+
+CUDA_VISIBLE_DEVICES=3 python main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 2 -p 10 -j 4 --lr 0.06 
+
+12.15
+CUDA_VISIBLE_DEVICES=2 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/checkpoint.pth.tar' -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 64 --lr 0.06 -log ./logs/gbl-resnet/fixed/lr0.06 --save resnet18_lr0.06
+
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 32 --lr 0.04 -log ./logs/gbl-resnet/fixed/lr0.04
+
+
+12.18
+tensorboard --logdir='./logs/gbl-resnet/fixed' --port=6006
+tensorboard --logdir='./logs/test/resnet18' --port=6007
+
+
+CUDA_VISIBLE_DEVICES=1 python face_main.py -a resnet18 /home/jcz/webface/train/ -b 128 -p 10 -j 1 --lr 0.1 -log ./logs/faceresnet
+CUDA_VISIBLE_DEVICES=3 python face_main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 2 -p 10 -j 1 --lr 0.1 -log ./logs/debug
+
+tensorboard --logdir='./logs/test/gbl-resnet' --port=6008
+
+12.21
+CUDA_VISIBLE_DEVICES=2 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/resnet18checkpoint.pth.tar' -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 64 --lr 0.04 -log ./logs/gbl-resnet/fixed/lr0.04
+CUDA_VISIBLE_DEVICES=1 python face_main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 2 -p 10 -j 2 --lr 0.1 -log ./logs/debug
+
+CUDA_VISIBLE_DEVICES=1 python face_main.py -a resnet18 /home/jcz/webface/train/ -b 128 -p 10 -j 32 --lr 0.1 -log ./logs/faceresnet/resnet18 --save faceresnet18_lr0.1
+
+CUDA_VISIBLE_DEVICES=0 python face_main.py -a resnet18 /home/jcz/webface/train/ -b 64 -p 10 -j 32 --lr 0.1 -log ./logs/faceresnet/gbl18 --save facegbl18_lr0.1
+
+tensorboard --logdir='./logs/faceresnet' --port=6009
+
+CUDA_VISIBLE_DEVICES=1 python face_main.py -a resnet18 /home/jcz/webface/train/ -b 128 -p 10 -j 32 --lr 0.1 -log ./logs/faceresnet/resnet18_ch64 --save faceresnet18_lr0.1_sz3_maxpool
+CUDA_VISIBLE_DEVICES=1 python face_main.py -a resnet18 /home/jcz/webface/train/ -b 128 -p 10 -j 32 --lr 0.1 -log ./logs/faceresnet/resnet18_ch64 --save facegbl18_lr0.1_sz3_maxpool
+CUDA_VISIBLE_DEVICES=1 python face_main.py -a resnet18 /home/jcz/webface/train/ -b 128 -p 10 -j 16 --lr 0.1 -log ./logs/faceresnet/resnet18_ch64 --save facegbl18_lr0.1_sz3_averagepool
+
+CUDA_VISIBLE_DEVICES=2 python face_main.py -a resnet18 /home/jcz/webface/train/ -b 128 -p 10 -j 16 --lr 0.1 -log ./logs/faceresnet/resnet18_ch32 --save faceresnet18_lr0.1_sz3_maxpool
+CUDA_VISIBLE_DEVICES=3 python face_main.py -a resnet18 /home/jcz/webface/train/ -b 128 -p 10 -j 32 --lr 0.1 -log ./logs/faceresnet/resnet18_ch32 --save facegbl18_lr0.1_sz3_maxpool
+
+CUDA_VISIBLE_DEVICES=1 python eval_lfw.py -d /home/jcz/data/lfw-deepfunneled_mtcnn/ -m /home/jcz/github/pytorch_examples/imagenet/faceresnet18_lr0.1_sz3_maxpoolcheckpoint.pth.tar --fold 0
+CUDA_VISIBLE_DEVICES=1 python eval_lfw.py -d /home/jcz/data/lfw-deepfunneled_mtcnn/ -m /home/jcz/github/pytorch_examples/imagenet/facegbl18_lr0.1_sz3_maxpoolcheckpoint.pth.tar --fold 0
+
+CUDA_VISIBLE_DEVICES=1 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/resnet18checkpoint_lr0.04_e17.pth.tar' -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 64 --lr 0.04 -log ./logs/gbl-resnet/fixed/lr0.04 --save gbl18_resum17
+
+12.26
+CUDA_VISIBLE_DEVICES=2 python face_main.py -a resnet18 /home/jcz/webface/train/ -b 128 -p 10 -j 32 --lr 0.1 -log ./logs/faceresnet/resnet18_ch64_semifixed --save faceresnet18_lr0.1_sz3_ch64_semifix
+
+CUDA_VISIBLE_DEVICES=2 python eval_lfw.py -d /home/jcz/data/lfw-deepfunneled_mtcnn/ -m /home/jcz/github/pytorch_examples/imagenet/faceresnet18_lr0.1_sz3_ch64_semifixcheckpoint.pth.tar --fold 10
+
+CUDA_VISIBLE_DEVICES=2 python face_main.py -a resnet18 /home/jcz/webface/train/ -b 128 -p 10 -j 32 --lr 0.1 -log ./logs/faceresnet/gblresnet18_ch64_semifixed --save gblresnet18_lr0.1_sz3_ch64_semifix
+
+1.4
+CUDA_VISIBLE_DEVICES=2 python eval_lfw.py -d /home/jcz/data/lfw-deepfunneled_mtcnn/ -m /home/jcz/github/pytorch_examples/imagenet/gblresnet18_lr0.1_sz3_ch64_semifixcheckpoint.pth.tar --fold 10
+
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 64 --lr 0.04 -log ./logs/gbl-resnet/semifixed/lr0.04 --save gbl18_semifixed_lr0.04
+
+1.7
+
+tensorboard --logdir='./logs/gbl-resnet/semifixed' --port=6006
+tensorboard --logdir='./logs/gbl-resnet/fixed' --port=6007
+tensorboard --logdir='./logs/test/resnet18' --port=6008
+
+
+CUDA_VISIBLE_DEVICES=2 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/gbl18_semifixed_lr0.04checkpoint.pth.tar'  -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 64 --lr 0.04 -log ./logs/gbl-resnet/semifixed/lr0.04 --save gbl18_semifixed_lr0.04
+
+CUDA_VISIBLE_DEVICES=2 python main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 128 --lr 0.08 -log ./logs/gbl-resnet/semifixed/lr0.08 --save gbl18_semifixed_lr0.08
+
+CUDA_VISIBLE_DEVICES=1 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/gbl18_semifixed_lr0.04checkpoint.pth.tar' -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 2 -p 10 -j 2 --lr 0.08 -log ./logs/debug --save debug
+
+1.10
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 2 -p 10 -j 2 --lr 0.08 -log ./logs/debug --save debug_tig5
+
+CUDA_VISIBLE_DEVICES=3 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/ --save gbl_tig
+CUDA_VISIBLE_DEVICES=3 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/ --save gbl_tig1
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/ --save gbl_tig2
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/ --save gbl_tig3
+
+1.11
+tensorboard --logdir='./logs/imagenet_100' --port=6009
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/gbl_tig4 --save gbl_tig4
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/gbl_tig5 --save gbl_tig5
+CUDA_VISIBLE_DEVICES=3 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.1 -log ./logs/imagenet_100/resnet18 --save resnet18
+
+1.12
+CUDA_VISIBLE_DEVICES=0 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/checkpoints/small_imagenet/gbl_tigcheckpoint.pth.tar' -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/tig --save gbl_tig
+CUDA_VISIBLE_DEVICES=1 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/checkpoints/small_imagenet/gbl_tig1checkpoint.pth.tar' -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/tig1 --save gbl_tig1
+CUDA_VISIBLE_DEVICES=3 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/checkpoints/small_imagenet/gbl_tig2checkpoint.pth.tar' -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/tig2 --save gbl_tig2
+
+CUDA_VISIBLE_DEVICES=3 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/semifixed_tig --save gblsemifixed_tig
+
+1.13
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/semifixed_tig5 --save gblsemifixed_tig5
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/semifixed_tig4 --save gblsemifixed_tig4
+CUDA_VISIBLE_DEVICES=3 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/semifixed_tig2 --save gblsemifixed_tig2
+
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/tig6 --save gbl_tig6
+
+CUDA_VISIBLE_DEVICES=3 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/tig6 --save gbl_tig7
+
+1.14
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/sp0.9/ --save imagenet_100/sp0.9/gbl_tig_fixed
+
+CUDA_VISIBLE_DEVICES=3 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/sp0.9/ --save imagenet_100/sp0.9/gbl_tig_semifixed
+
+CUDA_VISIBLE_DEVICES=1 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/checkpoints/small_imagenet/gbl_tigcheckpoint.pth.tar' -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/ --save tig_finetune --epochs 100
+
+1.23
+CUDA_VISIBLE_DEVICES=3 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/sp0.9_tig_fixed --save imagenet_100/sp0.9/gbl_tig_fixed
+
+CUDA_VISIBLE_DEVICES=2 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/sp0.2_tig_fixed --save imagenet_100/sp0.2_tig_fixed
+
+
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/sp0.9_tig_semifixed --save imagenet_100/sp0.9_tig_semifixed
+
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/sp0.2_tig_semifixed --save imagenet_100/sp0.2_tig_semifixed
+
+lr0.09 tig
+
+
+1.24
+CUDA_VISIBLE_DEVICES=3 python main.py -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 64 --lr 0.1 -log ./logs/resnet18/r2 --save resnet18_r2
+
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.09 -log ./logs/imagenet_100/sp0.5_tig_semifixed_lr0.09 --save imagenet_100/sp0.5_tig_semifixed_lr0.09
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.1 -log ./logs/imagenet_100/sp0.5_tig_semifixed_lr0.1 --save imagenet_100/sp0.5_tig_semifixed_lr0.1
+
+CUDA_VISIBLE_DEVICES=2 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/sp0.3_tig_semifixed --save imagenet_100/sp0.3_tig_semifixed
+
+1.25
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/sp0.1_tig_semifixed --save imagenet_100/sp0.1_tig_semifixed
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/sp0.7_tig_semifixed --save imagenet_100/sp0.7_tig_semifixed
+CUDA_VISIBLE_DEVICES=2 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.08 -log ./logs/imagenet_100/sp1_tig_semifixed --save imagenet_100/sp1_tig_semifixed
+
+1.26
+CUDA_VISIBLE_DEVICES=0 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/sp0.1_tig_fixed --save imagenet_100/sp0.1_tig_fixed
+CUDA_VISIBLE_DEVICES=1 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/sp0.3_tig_fixed --save imagenet_100/sp0.3_tig_fixed
+CUDA_VISIBLE_DEVICES=2 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/sp0.7_tig_fixed --save imagenet_100/sp0.7_tig_fixed
+CUDA_VISIBLE_DEVICES=2 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 64 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/sp0.9_tig_fixed --save imagenet_100/sp0.9_tig_fixed
+
+CUDA_VISIBLE_DEVICES=2 python main.py -a resnet18 /home/jcz/data/small_imagenet_100/ -b 8 -p 10 -j 8 --lr 0.04 -log ./logs/imagenet_100/sp0.5_t1_dubug --save imagenet_100/sp0.5_t1_dubug
+
+1.30
+CUDA_VISIBLE_DEVICES=3 python main.py --resume '/home/jcz/github/pytorch_examples/imagenet/checkpoints/resnet18_r2checkpoint.pth.tar' -a resnet18 /data1/datasets/imageNet/ILSVRC2012/ -b 256 -p 10 -j 64 --lr 0.1 -log ./logs/resnet18/r2 --save resnet18_r2
+
+
